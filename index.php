@@ -15,26 +15,24 @@
     <div>
         <form class="formResto">
             <h3 class="title">Insert Restaurant</h3>
-            <div class="inputStyle" >
+            <div class="inputStyle">
                 <label>Nom </label>
-                <input  type="text" name="nom" placeholder="Name restaurant">
+                <input type="text" name="nom" placeholder="Name restaurant" ng-model="nom" >
             </div>
-            <div class="inputStyle" >
+            <div class="inputStyle">
                 <label>Latitude</label>
-                <input  type="number" name="latitude" placeholder="Latitude">
+                <input type="number" name="latitude" placeholder="Latitude" ng-model="latitude" >
             </div>
 
-            <div class="inputStyle" >
+            <div class="inputStyle">
                 <label>Longitude</label>
-                <input  type="number" name="longitude" placeholder="Longitude">
+                <input type="number" name="longitude" placeholder="Longitude" ng-model="longitude" >
             </div>
             <div>
                 <label> Image Restaurant </label>
-                <input class="inputFile" type="file" name="img_file">
+                <input class="inputFile" type="file" name="img_file"  ng-model="img_file" >
             </div>
-
-
-             <button class="btn">Insert</button>
+            <button class="btn">Insert</button>
         </form>
 
 

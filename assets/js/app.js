@@ -3,6 +3,8 @@ var app = angular.module('app', []);
 app.controller('Map', ['$scope', '$http', function ($scope, $http) {
     $scope.data = [];
     $scope.carte;
+    $scope.latitude = 0;
+    $scope.longitude = 0;
 
 
     $scope.getAll = function () {
@@ -34,13 +36,19 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
                 map: $scope.carte
             });
         });
+
+
+        google.maps.event.addListener($scope.carte, "click", function (event) {
+            $scope.latitude = event.latLng.lat();
+            $scope.longitude = event.latLng.lng();
+            console.log($scope.longitude);
+            console.log($scope.latitude);
+            $scope.$apply();
+        });
     }
 
 
 
-
-
     $scope.getAll();
-    $scope.initialize($scope.data);
     // console.log($scope.data)
 }]);
