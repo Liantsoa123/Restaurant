@@ -1,0 +1,53 @@
+<?php
+include("../model/function.php");
+include("../model/corsPolicy.php");
+
+header("Content-Type: application/json");
+
+
+$return  = [
+    "message" => ""
+];
+
+
+if (isset($_POST['dish'])) {
+    insertPlat($_POST['id_restaurant'], $_POST['dish']);
+    $return['message'] = 'insert dish successful';
+} else {
+    $target_dir = "../assets/img/";
+    $target_file = $target_dir . basename($_FILES["img_file"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    if (isset($_POST["nom"]) && isset($_POST['longitude']) && isset($_POST['latitude'])) {
+
+        // Allow certain file formats (optional, here we're allowing all)
+        $allowedTypes = ["jpg", "png", "jpeg", "gif"];
+        if (!in_array($imageFileType, $allowedTypes)) {
+            // echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $return['message'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo  "Sorry, your file was not uploaded.";
+        } else {
+            if (move_uploaded_file($_FILES["img_file"]["tmp_name"], $target_file)) {
+                // echo "The file " . htmlspecialchars(basename($_FILES["img_file"]["name"])) . " has been uploaded.";
+                $return["message"] = "The file " . htmlspecialchars(basename($_FILES["img_file"]["name"])) . " has been uploaded.";
+            } else {
+                // echo "Sorry, there was an error uploading your file.";
+                $return["message"] = "Sorry, there was an error uploading your file.";
+            }
+        }
+
+        insertRestaurant($_POST['nom'], $_POST['latitude'], $_POST['longitude'], htmlspecialchars(basename($_FILES["img_file"]["name"])));
+    }
+}
+
+
+
+
+
+echo json_encode($return);
