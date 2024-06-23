@@ -1,5 +1,5 @@
-:root{
-    --font1 :  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+:root {
+    --font1: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 html {
@@ -16,7 +16,7 @@ body {
     height: 100%
 }
 
-.formResto{
+.formResto {
     position: absolute;
     border-radius: 7px;
     width: 17rem;
@@ -24,23 +24,24 @@ body {
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.411)  ;
-    backdrop-filter: blur( .4rem) ;
+    background: rgba(255, 255, 255, 0.411);
+    backdrop-filter: blur(.4rem);
     font-family: var(--font1);
     bottom: 2rem;
     right: 5rem;
 
 }
 
-.title{
+.title {
     font-size: 30px;
 }
 
-.inputStyle{
+.inputStyle {
     display: grid;
-    
+
 }
-input{
+
+input {
     padding: 0.5rem;
     border: none;
     border-radius: 7px;
@@ -48,10 +49,26 @@ input{
 
 
 
-.btn{
+
+.btn {
     padding: 0.5rem;
     border-radius: 7px;
     border: none;
     cursor: pointer;
 
+}
+
+.form-plat {
+    border-radius: 7px;
+    width: 17rem;
+    position: absolute;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--font1);
+    background: rgba(255, 255, 255, 0.411);
+    backdrop-filter: blur(.4rem);
+    bottom: 2rem;
+    right: 25rem;
 }

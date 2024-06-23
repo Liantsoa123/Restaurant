@@ -8,13 +8,13 @@
     </script>
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="assets/js/app.js"></script>
-    <!-- <script src="assets/js/function.js" ></script> -->
+    <script src="assets/js/function.js"></script>
 
 </head>
 
 <body ng-controller="Map">
     <div>
-        <form class="formResto"  id="formResto" >
+        <form class="formResto" id="formResto">
             <h3 class="title">Insert Restaurant</h3>
             <div class="inputStyle">
                 <label>Nom </label>
@@ -33,19 +33,18 @@
                 <label> Image Restaurant </label>
                 <input class="inputFile" type="file" name="img_file" ng-model="restaurant.img_file">
             </div>
-            <button class="btn"  ng-click="submitForm('formResto')" >Insert</button>
+            <button class="btn" ng-click="submitForm('formResto')" oneclick="upForm('form-plat')">Insert</button>
         </form>
     </div>
-    <div>
+    <div class="form-plat" ng-hide="viewFormPLat">
+
         <h3>Insert dish to {{dish.name_restaurant}}</h3>
-        <input type="number" ng-model="dish.id_restaurant">
-        <div>
+        <input type="hidden" ng-model="dish.id_restaurant">
+        <div class="inputStyle">
             <label> Dish name</label>
             <input type="text" ng-model="dish.name_plat">
         </div>
-        <div>
-            <button ng-click="insertDish()"> Insert </button>
-        </div>
+        <button class="btn" ng-click="insertDish()"> Insert </button>
     </div>
     <div id="carteId" />
 </body>

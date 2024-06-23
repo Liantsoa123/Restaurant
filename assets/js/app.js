@@ -5,8 +5,8 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
     $scope.carte;
     $scope.dish = {
         id_restaurant: 0,
-        name_plat: '',
-        name_restaurant: '',
+        name_plat: null,
+        name_restaurant: null,
     }
 
     $scope.restaurant = {
@@ -15,6 +15,8 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
         name_restaurant: '',
         img_file: null
     }
+
+    $scope.viewFormPLat = true;
 
     $scope.getAll = function () {
         $http.get('controller/getAll.php')
@@ -119,6 +121,7 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
             });
 
             marker.addListener("click", function () {
+                $scope.viewFormPLat = false;
                 $scope.$apply(function () {
                     $scope.dish.id_restaurant = location.id_restaurant;
                     $scope.dish.name_restaurant = location.name_restaurant;
@@ -132,6 +135,7 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
         google.maps.event.addListener($scope.carte, "click", function (event) {
             $scope.restaurant.latitude = event.latLng.lat();
             $scope.restaurant.longitude = event.latLng.lng();
+            $scope.viewFormPLat = true;
             console.log($scope.restaurant.longitude);
             console.log($scope.restaurant.latitude);
             $scope.$apply();
