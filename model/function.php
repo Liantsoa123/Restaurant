@@ -40,42 +40,74 @@ function getRestaurant()
 
 
 
-function searchRestaurant($longitude, $latitude, $rayon, $name_Plat,)
+// function searchRestaurant($longitude, $latitude, $rayon, $name_Plat,)
+// {
+
+//     $con = dbconnect();
+//     $query = "
+// WITH current_position AS (
+//     SELECT ST_SetSRID(ST_MakePoint(?, ?), 4326) AS geom
+// )
+// SELECT 
+//     r.id_restaurant,
+//     r.name_restaurant,
+//     r.longitude,
+//     r.latitude,
+//     r.name_plat,
+//     r.img_restaurant
+// FROM 
+//     v_restoPlat r,
+//     current_position cp
+// WHERE 
+//     ST_DWithin(r.geom::geography, cp.geom::geography, ?)
+// ";
+
+//     $statement = $con->prepare($query);
+//     $statement->bindParam(1, $longitude, PDO::PARAM_INT);
+//     $statement->bindParam(2, $latitude, PDO::PARAM_INT);
+//     $statement->bindParam(3, $rayon, PDO::PARAM_INT);
+//     // $statement->bindParam(4, $name_Plat, PDO::PARAM_STR);
+
+//     // Concatenate % with the search term in PHP
+//     $name_Plat = "%" . $name_Plat . "%";
+
+//     $statement->execute();
+//     return $statement->fetchAll(PDO::FETCH_ASSOC);
+// }
+
+function searchRestaurant($longitude, $latitude, $distance, $name_plat)
 {
+    $pdo = dbconnect();
+    $sql = "
+        SELECT 
+            r.id_restaurant, 
+            r.name_restaurant, 
+            r.longitude, 
+            r.latitude, 
+            r.img_restaurant
+        FROM 
+            restaurant r
+        JOIN 
+            plat p ON r.id_restaurant = p.id_restaurant
+        WHERE 
+            ST_DWithin(
+                r.geom::geography,
+                ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geography,
+                :distance
+            )
+            AND p.name_plat = :name_plat
+    ";
 
-    $con = dbconnect();
-    $query = "
-WITH current_position AS (
-    SELECT ST_SetSRID(ST_MakePoint(?, ?), 4326) AS geom
-)
-SELECT 
-    r.id_restaurant,
-    r.name_restaurant,
-    r.longitude,
-    r.latitude,
-    r.name_plat,
-    r.img_restaurant
-FROM 
-    v_restoPlat r,
-    current_position cp
-WHERE 
-    ST_DWithin(r.geom::geography, cp.geom::geography, ?)
-    AND r.name_plat ILIKE ?
-";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':longitude', $longitude);
+    $stmt->bindParam(':latitude', $latitude);
+    $stmt->bindParam(':distance', $distance, PDO::PARAM_INT);
+    $stmt->bindParam(':name_plat', $name_plat);
 
-    $statement = $con->prepare($query);
-    $statement->bindParam(1, $longitude, PDO::PARAM_STR);
-    $statement->bindParam(2, $latitude, PDO::PARAM_STR);
-    $statement->bindParam(3, $rayon, PDO::PARAM_STR);
-    $statement->bindParam(4, $name_Plat, PDO::PARAM_STR);
+    $stmt->execute();
 
-    // Concatenate % with the search term in PHP
-    $name_Plat = "%" . $name_Plat . "%";
-
-    $statement->execute();
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
 
 function insertPlat($id_restaurant, $name_Plat)
 {

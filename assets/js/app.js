@@ -56,6 +56,25 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
             });
     }
 
+    $scope.search = function (idForm) {
+        const form = document.getElementById(idForm);
+        const formData = new FormData(form);
+        console.log("search resto")
+        fetch('controller/search.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(JSON.parse(data)); // Process the response from the PHP script
+                $scope.data = JSON.parse(data);
+                $scope.initialize($scope.data)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while searching restaurant.');
+            });
+    }
 
 
     $scope.initialize = function (data) {
@@ -118,7 +137,5 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
             $scope.$apply();
         });
     };
-
-
     $scope.getAll();
 }]);
