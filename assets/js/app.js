@@ -86,7 +86,9 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
             });
 
             var infowindow = new google.maps.InfoWindow({
-                content: location.name_restaurant
+                content: '<div>' +
+                    '<h3>' + location.name_restaurant + '</h3>' +
+                    '<img src="assets/img/' + location.img_restaurant + '" style="height: 200px; width:200px " ></div>'
             });
 
             marker.addListener("mouseover", function () {
