@@ -10,8 +10,8 @@ $return  = [
 ];
 
 
-if (isset($_POST['dish'])) {
-    insertPlat($_POST['id_restaurant'], $_POST['dish']);
+if (isset($_GET['name_plat'])) {
+    insertPlat($_GET['id_restaurant'], $_GET['name_plat']);
     $return['message'] = 'insert dish successful';
 } else {
     $target_dir = "../assets/img/";
@@ -19,7 +19,7 @@ if (isset($_POST['dish'])) {
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    if (isset($_POST["nom"]) && isset($_POST['longitude']) && isset($_POST['latitude'])) {
+    if (isset($_GET["nom"]) && isset($_GET['longitude']) && isset($_GET['latitude'])) {
 
         // Allow certain file formats (optional, here we're allowing all)
         $allowedTypes = ["jpg", "png", "jpeg", "gif"];
@@ -42,7 +42,7 @@ if (isset($_POST['dish'])) {
             }
         }
 
-        insertRestaurant($_POST['nom'], $_POST['latitude'], $_POST['longitude'], htmlspecialchars(basename($_FILES["img_file"]["name"])));
+        insertRestaurant($_GET['nom'], $_GET['latitude'], $_GET['longitude'], htmlspecialchars(basename($_FILES["img_file"]["name"])));
     }
 }
 
@@ -50,4 +50,4 @@ if (isset($_POST['dish'])) {
 
 
 
-echo json_encode($return);
+echo json_encode($return['message']);

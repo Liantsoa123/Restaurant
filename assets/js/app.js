@@ -21,7 +21,14 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
     };
 
     $scope.insertDish = function () {
-        $http.post('controller/insert.php')
+        $http({
+            url: "controller/insert.php",
+            method: "GET",
+            params: $scope.dish
+        })
+            .then(function (response) {
+                alert(response.data);
+            })
     }
 
     $scope.initialize = function (data) {
@@ -56,7 +63,7 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
             });
 
             marker.addListener("click", function () {
-                
+
                 $scope.$apply(function () {
                     $scope.dish.id_restaurant = location.id_restaurant;
                     $scope.dish.name_restaurant = location.name_restaurant;
