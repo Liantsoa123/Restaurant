@@ -34,16 +34,13 @@ if (isset($_GET['name_plat'])) {
             echo  "Sorry, your file was not uploaded.";
         } else {
             if (move_uploaded_file($_FILES["img_file"]["tmp_name"], $target_file)) {
-                // echo "The file " . htmlspecialchars(basename($_FILES["img_file"]["name"])) . " has been uploaded.";
                 $return["message"] = "The file " . htmlspecialchars(basename($_FILES["img_file"]["name"])) . " has been uploaded";
             } else {
-                // echo "Sorry, there was an error uploading your file.";
                 $return["message"] = "Sorry, there was an error uploading your file.";
             }
         }
-
         insertRestaurant($_POST['name_restaurant'], $_POST['latitude'], $_POST['longitude'], htmlspecialchars(basename($_FILES["img_file"]["name"])));
-        $return['message'] .= " and Restaurant has been inserted successfully!"; 
+        $return['message'] .= " and Restaurant has been inserted successfully!";
     }
 }
 

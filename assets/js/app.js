@@ -48,6 +48,7 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
             .then(data => {
                 console.log(data); // Process the response from the PHP script
                 alert('Form submitted successfully!');
+                $scope.getAll();
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -58,6 +59,14 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
 
 
     $scope.initialize = function (data) {
+        // Clear existing markers
+        if ($scope.markers) {
+            $scope.markers.forEach(function (marker) {
+                marker.setMap(null);
+            });
+        }
+        $scope.markers = [];
+
         // Options de la carte (coordonnées du centre, zoom)
         $scope.mapOptions = {
             center: new google.maps.LatLng(-18.397, 45.644),
@@ -89,12 +98,14 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
             });
 
             marker.addListener("click", function () {
-
                 $scope.$apply(function () {
                     $scope.dish.id_restaurant = location.id_restaurant;
                     $scope.dish.name_restaurant = location.name_restaurant;
                 });
             });
+
+            // Push the marker to the array
+            $scope.markers.push(marker);
         });
 
         google.maps.event.addListener($scope.carte, "click", function (event) {
@@ -105,6 +116,7 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
             $scope.$apply();
         });
     };
+
 
     $scope.getAll();
 }]);
