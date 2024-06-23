@@ -95,14 +95,16 @@ function searchRestaurant($longitude, $latitude, $distance, $name_plat)
                 ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geography,
                 :distance
             )
-            AND p.name_plat = :name_plat
-    ";
+";
 
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':longitude', $longitude);
     $stmt->bindParam(':latitude', $latitude);
     $stmt->bindParam(':distance', $distance, PDO::PARAM_INT);
-    $stmt->bindParam(':name_plat', $name_plat);
+    if ($name_plat != '' && $name_plat != null) {
+        $sql .=   "AND p.name_plat = :name_plat";
+        $stmt->bindParam(':name_plat', $name_plat);
+    }
 
     $stmt->execute();
 

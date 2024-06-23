@@ -2,7 +2,17 @@ var app = angular.module('app', []);
 
 app.controller('Map', ['$scope', '$http', function ($scope, $http) {
     $scope.data = [];
-    $scope.carte;
+
+    // Options de la carte (coordonnées du centre, zoom)
+    $scope.mapOptions = {
+        center: new google.maps.LatLng(-18.397, 45.644),
+        zoom: 7,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    // Création d'une nouvelle carte Google Maps
+    $scope.carte = new google.maps.Map(document.getElementById("carteId"), $scope.mapOptions);
+    // $scope.carte;
     $scope.dish = {
         id_restaurant: 0,
         name_plat: null,
@@ -15,6 +25,8 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
         name_restaurant: '',
         img_file: null
     }
+
+    $scope.markers = [];
 
     $scope.viewFormPLat = true;
 
@@ -88,15 +100,7 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
         }
         $scope.markers = [];
 
-        // Options de la carte (coordonnées du centre, zoom)
-        $scope.mapOptions = {
-            center: new google.maps.LatLng(-18.397, 45.644),
-            zoom: 7,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
 
-        // Création d'une nouvelle carte Google Maps
-        $scope.carte = new google.maps.Map(document.getElementById("carteId"), $scope.mapOptions);
 
         // Coordonnées de l'emplacement du marqueur
         data.forEach(function (location) {
@@ -131,6 +135,7 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
             // Push the marker to the array
             $scope.markers.push(marker);
         });
+
 
         google.maps.event.addListener($scope.carte, "click", function (event) {
             $scope.restaurant.latitude = event.latLng.lat();

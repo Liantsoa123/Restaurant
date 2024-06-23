@@ -1,62 +1,46 @@
 -- data restaurant
-INSERT INTO
-    restaurant (
+    INSERT INTO
+        restaurant
+        (
         name_restaurant,
         longitude,
         latitude,
         img_restaurant,
         geom
-    )
-VALUES
-    (
-        'Restaurant A',
-        -73.935242,
-        40.730610,
-        'image_a.jpg',
-        ST_SetSRID(ST_MakePoint(-73.935242, 40.730610), 4326)
-    ),
-    (
-        'Restaurant B',
-        -74.935242,
-        40.830610,
-        'image_b.jpg',
-        ST_SetSRID(ST_MakePoint(-74.935242, 40.830610), 4326)
-    ),
-    (
-        'Restaurant C',
-        -73.935242,
-        40.530610,
-        'image_c.jpg',
-        ST_SetSRID(ST_MakePoint(-73.935242, 40.530610), 4326)
-    ),
-    (
-        'Restaurant D',
-        -72.935242,
-        40.730610,
-        'image_d.jpg',
-        ST_SetSRID(ST_MakePoint(-72.935242, 40.730610), 4326)
-    ),
-    (
-        'Restaurant E',
-        -73.935242,
-        41.730610,
-        'image_e.jpg',
-        ST_SetSRID(ST_MakePoint(-73.935242, 41.730610), 4326)
-    );
-
--- data plat
-INSERT INTO
-    plat (id_restaurant, name_plat)
-VALUES
-    (3, 'Pizza Margherita'),
-    (4, 'Spaghetti Carbonara'),
-    (2, 'Sushi'),
-    (2, 'Ramen'),
-    (3, 'Tacos'),
-    (3, 'Burritos'),
-    (4, 'Burger'),
-    (4, 'Fries'),
-    (5, 'Pasta Alfredo'),
-    (5, 'Caesar Salad');
-
-
+        )
+    VALUES
+        (
+            'Restaurant A',
+            -73.935242,
+            40.730610,
+            'monde.jpg',
+            ST_SetSRID(ST_MakePoint(47.507905, -18.879190), 4326)
+        ),
+        (
+            'Restaurant B',
+            -74.935242,
+            40.830610,
+            'monde.jpg',
+            ST_SetSRID(ST_MakePoint(47.515358, -18.879079), 4326)
+        ),
+        (
+            'Restaurant C',
+            -73.935242,
+            40.530610,
+            'monde.jpg',
+            ST_SetSRID(ST_MakePoint(47.509720, -18.862445), 4326)
+        ),
+        (
+            'Restaurant D',
+            -72.935242,
+            40.730610,
+            'monde.jpg',
+            ST_SetSRID(ST_MakePoint(47.509117, -18.912860), 4326)
+        ),
+        (
+            'Restaurant E',
+            -73.935242,
+            41.730610,
+            'monde.jpg',
+            ST_SetSRID(ST_MakePoint(47.514334, -18.868952), 4326)
+        );

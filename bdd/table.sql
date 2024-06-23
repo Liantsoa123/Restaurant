@@ -21,19 +21,19 @@ CREATE table plat (
     foreign key (id_restaurant) references restaurant(id_restaurant)
 );
 
-CREATE
-or Replace view v_restoPlat as
-SELECT
-    restaurant.id_restaurant id_restaurant,
-    name_restaurant,
-    longitude,
-    latitude,
-    geom,
-    name_plat,
-    img_restaurant
-from
-    restaurant
-    join plat on restaurant.id_restaurant = plat.id_restaurant;
+    CREATE
+    or Replace view v_restoPlat as
+    SELECT
+        restaurant.id_restaurant id_restaurant,
+        name_restaurant,
+        longitude,
+        latitude,
+        geom,
+        name_plat,
+        img_restaurant
+    from
+        restaurant
+    left join plat on restaurant.id_restaurant = plat.id_restaurant;
 
 -- requet to search the restaurant arond 10km 
 WITH current_position AS (
@@ -56,4 +56,4 @@ WHERE
         cp.geom :: geography,
         10000
     )
-    and r.name_plat ilike '%a%';
+    and r.name_plat ilike '% %';
