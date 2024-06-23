@@ -3,12 +3,17 @@ var app = angular.module('app', []);
 app.controller('Map', ['$scope', '$http', function ($scope, $http) {
     $scope.data = [];
     $scope.carte;
-    $scope.latitude = 0;
-    $scope.longitude = 0;
     $scope.dish = {
-        id_restaurant: -1,
+        id_restaurant: 0,
         name_plat: '',
         name_restaurant: '',
+    }
+
+    $scope.restaurant = {
+        latitude: '',
+        longitude: '',
+        name_restaurant: '',
+        img_file: null
     }
 
     $scope.getAll = function () {
@@ -30,6 +35,27 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
                 alert(response.data);
             })
     }
+
+    $scope.submitForm = function (idForm) {
+        const form = document.getElementById(idForm);
+        const formData = new FormData(form);
+        console.log("insert resto")
+        fetch('controller/insert.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data); // Process the response from the PHP script
+                alert('Form submitted successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while submitting the form.');
+            });
+    }
+
+
 
     $scope.initialize = function (data) {
         // Options de la carte (coordonnées du centre, zoom)
@@ -72,10 +98,10 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
         });
 
         google.maps.event.addListener($scope.carte, "click", function (event) {
-            $scope.latitude = event.latLng.lat();
-            $scope.longitude = event.latLng.lng();
-            console.log($scope.longitude);
-            console.log($scope.latitude);
+            $scope.restaurant.latitude = event.latLng.lat();
+            $scope.restaurant.longitude = event.latLng.lng();
+            console.log($scope.restaurant.longitude);
+            console.log($scope.restaurant.latitude);
             $scope.$apply();
         });
     };

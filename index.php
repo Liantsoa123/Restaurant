@@ -8,31 +8,32 @@
     </script>
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <!-- <script src="assets/js/function.js" ></script> -->
 
 </head>
 
 <body ng-controller="Map">
     <div>
-        <form class="formResto">
+        <form class="formResto"  id="formResto" >
             <h3 class="title">Insert Restaurant</h3>
             <div class="inputStyle">
                 <label>Nom </label>
-                <input type="text" name="nom" placeholder="Name restaurant" ng-model="nom">
+                <input type="text" name="name_restaurant" placeholder="Name restaurant" ng-model="restaurant.name_restaurant">
             </div>
             <div class="inputStyle">
                 <label>Latitude</label>
-                <input type="number" name="latitude" placeholder="Latitude" ng-model="latitude">
+                <input type="number" name="latitude" placeholder="Latitude" ng-model="restaurant.latitude">
             </div>
 
             <div class="inputStyle">
                 <label>Longitude</label>
-                <input type="number" name="longitude" placeholder="Longitude" ng-model="longitude">
+                <input type="number" name="longitude" placeholder="Longitude" ng-model="restaurant.longitude">
             </div>
             <div>
                 <label> Image Restaurant </label>
-                <input class="inputFile" type="file" name="img_file" ng-model="img_file">
+                <input class="inputFile" type="file" name="img_file" ng-model="restaurant.img_file">
             </div>
-            <button class="btn">Insert</button>
+            <button class="btn"  ng-click="submitForm('formResto')" >Insert</button>
         </form>
     </div>
     <div>
