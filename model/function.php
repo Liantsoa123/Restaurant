@@ -75,34 +75,44 @@ function getRestaurant()
 //     return $statement->fetchAll(PDO::FETCH_ASSOC);
 // }
 
+
 function searchRestaurant($longitude, $latitude, $distance, $name_plat)
 {
     $pdo = dbconnect();
+
     $sql = "
-        SELECT 
-            r.id_restaurant, 
-            r.name_restaurant, 
-            r.longitude, 
-            r.latitude, 
+        WITH current_position AS (
+            SELECT ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326) AS geom
+        )
+        SELECT
+            r.id_restaurant,
+            r.name_restaurant,
+            r.longitude,
+            r.latitude,
+            r.name_plat,
             r.img_restaurant
-        FROM 
-            restaurant r
-        JOIN 
-            plat p ON r.id_restaurant = p.id_restaurant
-        WHERE 
+        FROM
+            v_restoPlat r,
+            current_position cp
+        WHERE
             ST_DWithin(
                 r.geom::geography,
-                ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geography,
+                cp.geom::geography,
                 :distance
             )
-";
+    ";
+
+    if ($name_plat != '' && $name_plat != null) {
+        $sql .= " AND r.name_plat ILIKE :name_plat";
+    }
 
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':longitude', $longitude);
     $stmt->bindParam(':latitude', $latitude);
     $stmt->bindParam(':distance', $distance, PDO::PARAM_INT);
+
     if ($name_plat != '' && $name_plat != null) {
-        $sql .=   "AND p.name_plat = :name_plat";
+        $name_plat = '%' . $name_plat . '%';
         $stmt->bindParam(':name_plat', $name_plat);
     }
 
@@ -110,6 +120,7 @@ function searchRestaurant($longitude, $latitude, $distance, $name_plat)
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 function insertPlat($id_restaurant, $name_Plat)
 {

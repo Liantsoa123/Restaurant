@@ -1,10 +1,13 @@
+-- Required extensions
 CREATE EXTENSION postgis;
 
 CREATE EXTENSION postgis_topology;
 
+-- Checking PostGIS full version
 SELECT
     postgis_full_version();
 
+-- Creating the restaurant table
 CREATE TABLE restaurant (
     id_restaurant serial PRIMARY KEY,
     name_restaurant text NOT NULL,
@@ -14,28 +17,30 @@ CREATE TABLE restaurant (
     geom geometry(Point, 4326) NOT NULL
 );
 
-CREATE table plat (
-    id_plat serial primary key,
+-- Creating the plat table
+CREATE TABLE plat (
+    id_plat serial PRIMARY KEY,
     id_restaurant int,
-    name_plat text not null,
-    foreign key (id_restaurant) references restaurant(id_restaurant)
+    name_plat text NOT NULL,
+    FOREIGN KEY (id_restaurant) REFERENCES restaurant(id_restaurant)
 );
 
-    CREATE
-    or Replace view v_restoPlat as
-    SELECT
-        restaurant.id_restaurant id_restaurant,
-        name_restaurant,
-        longitude,
-        latitude,
-        geom,
-        name_plat,
-        img_restaurant
-    from
-        restaurant
-    left join plat on restaurant.id_restaurant = plat.id_restaurant;
+-- Creating or replacing the view v_restoPlat
+CREATE
+OR REPLACE VIEW v_restoPlat AS
+SELECT
+    restaurant.id_restaurant,
+    name_restaurant,
+    longitude,
+    latitude,
+    geom,
+    name_plat,
+    img_restaurant
+FROM
+    restaurant
+    LEFT JOIN plat ON restaurant.id_restaurant = plat.id_restaurant;
 
--- requet to search the restaurant arond 10km 
+-- Query to search for restaurants around 10km with 'pizza' in the plat name
 WITH current_position AS (
     SELECT
         ST_SetSRID(ST_MakePoint(-73.935242, 40.730610), 4326) AS geom
@@ -56,4 +61,4 @@ WHERE
         cp.geom :: geography,
         10000
     )
-    and r.name_plat ilike '% %';
+    AND r.name_plat ILIKE '%pizza%';
