@@ -15,21 +15,22 @@
 <body ng-controller="Map">
     <div>
         <form class="formResto" id="formSearch">
-            <h3 class="title">Recherche GASTRONOMIE PIZZA</h3>
+            <h3 class="title">Recherche <span>GASTRONOMIE PIZZA</span></h3>
+            
+            <hr>
+
             <div class="inputStyle">
-                <input type="hidden" name="name_plat" placeholder="Dish Name">
-            </div>
-            <div class="inputStyle">
-                <label>Latitude</label>
+                <label>Latitude:</label>
                 <input type="text" name="latitude" placeholder="Latitude" ng-model="restaurant.latitude">
             </div>
 
             <div class="inputStyle">
-                <label>Longitude</label>
+                <label>Longitude:</label>
                 <input type="text" name="longitude" placeholder="Longitude" ng-model="restaurant.longitude">
             </div>
+
             <div class="inputStyle">
-                <label>Radius</label>
+                <label>Radius:</label>
                 <input type="text" name="radius" placeholder="radius">
             </div>  
 
