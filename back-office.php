@@ -15,22 +15,22 @@
 <body ng-controller="Map">
     <div>
         <form class="formResto" id="formResto">
-            <h3 class="title">Insert Restaurant</h3>
+            <h3 class="title"> AJOUTER UNE  GASTRONOMIE PIZZA</h3>
             <div class="inputStyle">
                 <label>Nom </label>
                 <input type="text" name="name_restaurant" placeholder="Name restaurant" ng-model="restaurant.name_restaurant">
             </div>
             <div class="inputStyle">
                 <label>Latitude</label>
-                <input type="number" name="latitude" placeholder="Latitude" ng-model="restaurant.latitude">
+                <input type="text" name="latitude" placeholder="Latitude" ng-model="restaurant.latitude">
             </div>
 
             <div class="inputStyle">
                 <label>Longitude</label>
-                <input type="number" name="longitude" placeholder="Longitude" ng-model="restaurant.longitude">
+                <input type="text" name="longitude" placeholder="Longitude" ng-model="restaurant.longitude">
             </div>
             <div>
-                <label> Image Restaurant </label>
+                <label> Image GASTRONOMIE PIZZA </label>
                 <input class="inputFile" type="file" name="img_file" ng-model="restaurant.img_file">
             </div>
             <button class="btn" ng-click="submitForm('formResto')" oneclick="upForm('form-plat')">Insert</button>

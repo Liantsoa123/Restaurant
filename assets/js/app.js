@@ -5,8 +5,8 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
 
     // Options de la carte (coordonnées du centre, zoom)
     $scope.mapOptions = {
-        center: new google.maps.LatLng(-18.397, 45.644),
-        zoom: 7,
+        center: new google.maps.LatLng(-18.916, 47.515),
+        zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
@@ -100,7 +100,7 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
         }
         $scope.markers = [];
 
-
+        
 
         // Coordonnées de l'emplacement du marqueur
         data.forEach(function (location) {
@@ -111,9 +111,9 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
             });
 
             var infowindow = new google.maps.InfoWindow({
-                content: '<div>' +
+                content: '<div width:300px >' +
                     '<h3>' + location.name_restaurant + '</h3>' +
-                    '<img src="assets/img/' + location.img_restaurant + '" style="height: 200px; width:200px " ></div>'
+                    '<div style="height: 300px; width:400px ; overflow:hidden" ><img src="assets/img/' + location.img_restaurant + '" style="height: 100%; width:100%; object-fit:cover ; object-position:center " ></div></div>'
             });
 
             marker.addListener("mouseover", function () {

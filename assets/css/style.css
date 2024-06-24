@@ -55,6 +55,7 @@ input {
     border-radius: 7px;
     border: none;
     cursor: pointer;
+    margin-top: 1rem;
 }
 
 .form-plat {
