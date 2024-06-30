@@ -9,8 +9,6 @@
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/back-office.js"></script>
-    <script src="assets/js/function.js"></script>
-
 </head>
 
 <body ng-controller="BackOfficeCrtl">

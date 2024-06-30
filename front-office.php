@@ -8,15 +8,16 @@
     </script>
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/front-office.js"></script>
     <!-- <script src="assets/js/function.js" ></script> -->
 
 </head>
 
-<body ng-controller="Map">
+<body ng-controller="FrontOfficeCtrl">
     <div>
         <form class="formResto" id="formSearch">
             <h3 class="title">Recherche <span>GASTRONOMIE PIZZA</span></h3>
-            
+
             <hr>
 
             <div class="inputStyle">
@@ -32,7 +33,7 @@
             <div class="inputStyle">
                 <label>Radius:</label>
                 <input type="text" name="radius" ng-model="restaurant.radius" placeholder="radius">
-            </div>  
+            </div>
 
             <button class="btn" ng-click="search('formSearch')">Search</button>
         </form>
