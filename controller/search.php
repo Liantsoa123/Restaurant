@@ -4,7 +4,7 @@ include("../model/corsPolicy.php");
 
 
 $result = [];
-$raduis = $_POST['radius'] * 1000 ;
+$raduis = $_POST['radius'];
 $longitude = $_POST['longitude'];
 $latitude = $_POST['latitude'];
 if (isset($_POST['name_plat'])) {

@@ -31,7 +31,7 @@
 
             <div class="inputStyle">
                 <label>Radius:</label>
-                <input type="text" name="radius" placeholder="radius">
+                <input type="text" name="radius" ng-model="restaurant.radius" placeholder="radius">
             </div>  
 
             <button class="btn" ng-click="search('formSearch')">Search</button>

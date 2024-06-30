@@ -2,6 +2,13 @@ var app = angular.module('app', []);
 
 app.controller('Map', ['$scope', '$http', function ($scope, $http) {
     $scope.data = [];
+    $scope.markers = [];
+    // user marker 
+    $scope.userMarker = null;
+    $scope.userIcon = {
+        url: "assets/img/icon/location.png", // Replace with your icon path
+        scaledSize: new google.maps.Size(40, 40), // Adjust size as needed
+    };
 
     // Options de la carte (coordonnées du centre, zoom)
     $scope.mapOptions = {
@@ -12,7 +19,7 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
 
     // Création d'une nouvelle carte Google Maps
     $scope.carte = new google.maps.Map(document.getElementById("carteId"), $scope.mapOptions);
-    // $scope.carte;
+
     $scope.dish = {
         id_restaurant: 0,
         name_plat: null,
@@ -23,10 +30,10 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
         latitude: '',
         longitude: '',
         name_restaurant: '',
+        radius: '',
         img_file: null
     }
 
-    $scope.markers = [];
 
     $scope.viewFormPLat = true;
 
@@ -91,6 +98,41 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
     }
 
 
+    $scope.initialize_user_position = function () {
+        // Clear the existing user marker and circle
+        if ($scope.userMarker !== null) {
+            $scope.userMarker.setMap(null);
+        }
+        if ($scope.userCircle !== undefined) {
+            $scope.userCircle.setMap(null);
+        }
+
+        // Create the user marker
+        $scope.userMarker = new google.maps.Marker({
+            position: {
+                lat: parseFloat($scope.restaurant.latitude),
+                lng: parseFloat($scope.restaurant.longitude)
+            },
+            map: $scope.carte,
+            icon: $scope.userIcon,
+        });
+
+        // Define the circle options
+        var circleOptions = {
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: $scope.carte,
+            center: $scope.userMarker.getPosition(),
+            radius: parseFloat($scope.restaurant.radius) // Assuming radius is in meters
+        };
+
+        // Create the circle
+        $scope.userCircle = new google.maps.Circle(circleOptions);
+    };
+
     $scope.initialize = function (data) {
         // Clear existing markers
         if ($scope.markers) {
@@ -99,8 +141,6 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
             });
         }
         $scope.markers = [];
-
-        
 
         // Coordonnées de l'emplacement du marqueur
         data.forEach(function (location) {
@@ -136,11 +176,11 @@ app.controller('Map', ['$scope', '$http', function ($scope, $http) {
             $scope.markers.push(marker);
         });
 
-
         google.maps.event.addListener($scope.carte, "click", function (event) {
             $scope.restaurant.latitude = event.latLng.lat();
             $scope.restaurant.longitude = event.latLng.lng();
             $scope.viewFormPLat = true;
+            $scope.initialize_user_position();
             console.log($scope.restaurant.longitude);
             console.log($scope.restaurant.latitude);
             $scope.$apply();
