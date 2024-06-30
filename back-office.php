@@ -8,11 +8,12 @@
     </script>
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/back-office.js"></script>
     <script src="assets/js/function.js"></script>
 
 </head>
 
-<body ng-controller="Map">
+<body ng-controller="BackOfficeCrtl">
     <div>
         <form class="formResto" id="formResto">
             <h3 class="title">AJOUTER UNE <span>GASTRONOMIE PIZZA</span></h3>
@@ -39,16 +40,7 @@
             <button class="btn" ng-click="submitForm('formResto')" oneclick="upForm('form-plat')">Insert</button>
         </form>
     </div>
-    <div class="form-plat" ng-hide="viewFormPLat">
 
-        <h3>Insert dish to {{dish.name_restaurant}}</h3>
-        <input type="hidden" ng-model="dish.id_restaurant">
-        <div class="inputStyle">
-            <label> Dish name</label>
-            <input type="text" ng-model="dish.name_plat">
-        </div>
-        <button class="btn" ng-click="insertDish()"> Insert </button>
-    </div>
     <div id="carteId" />
 </body>
 
